@@ -1,7 +1,7 @@
 # Assignment 1
 # Version:  2023.09.0+463
 # Author: Eric Bonk
-# Assignment 3 edits coded by Sarah Donald (last edited: November 10, 2023)
+# Assignment 3 edits coded by Sarah Donald (last edited: November 13, 2023). Contributions include creating edits to make the read-through easier, adding a new figure to compare number of records of each species for each genus. Edits for generalization were also made to improve the flexibility of the code. Minor edits were also made for overall improvement. 
 
 #Libraries Used ----
 #This section contains all the relevant packages used in this code.
@@ -62,13 +62,11 @@ Genus_2 <- Genus_2 %>%
 # Check to make sure both genera have at least 10 bins
 
 length(unique(Genus_1$bin_uri))
-
 length(unique(Genus_2$bin_uri))
 
 # Check to make sure that species are actually species in the genus 
 
 unique(Genus_1$species_name)
-
 unique(Genus_2$species_name)
 
 # For the geological data need to make sure the countries are actually countries 
@@ -101,28 +99,36 @@ Genus_2_simplified<-Genus_2 %>%
 # Determine the total number of records for each genus 
 sum(Genus_1_simplified$count)
 sum(Genus_2_simplified$count)
+
 # Determine mean number of records for each genus 
 mean(Genus_1_simplified$count)
 mean(Genus_2_simplified$count)
+
 # Determine standard error for the mean number of records for each genus 
 std.error(Genus_1_simplified$count)
 std.error(Genus_2_simplified$count)
+
 # Determine range of records for each genus 
 range(Genus_1_simplified$count)
 range(Genus_2_simplified$count)
+
 # Determine if there is a statistically significant difference----
 # Test assumptions
 shapiro.test(Genus_1_simplified$count)
 shapiro.test(Genus_2_simplified$count)
+
 # Levene test
 leveneTest(Genus_1_simplified$count,Genus_1_simplified$species_name)
 leveneTest(Genus_2_simplified$count,Genus_2_simplified$species_name)
+
 # The Levene's test is NA due to there being only one replicate per species so in order to further assess the distribution of the data a histogram needs to be made 
 hist(Genus_1_simplified$count) # Positive skew
 hist(Genus_2_simplified$count) # Positive skew
+
 # Data is Non-parametric so Wilcox test
 wilcox.test(Genus_2_simplified$count, Genus_1_simplified$count)
 # Statistically significant difference occurs 
+
 # Make bar plot for the mean number of records per species for each genus----
 # Make data frame to conform to ggplot requirements
 records_per_species<-data.frame(count=c(Genus_2_simplified$count,Genus_1_simplified$count ),
@@ -160,8 +166,10 @@ plot_Genus_2 <- ggplot(data = Genus_2_simplified, aes(y = count, x = species_nam
 
 ggarrange(plot_Genus_1,plot_Genus_2, ncol =2)
  
+#remove objects
 rm(plot_Genus_1)
 rm(plot_Genus_2)
+rm(records_per_species)
 
 # Geological analysis ----
 # Determine contributing countries for each genus
@@ -263,3 +271,20 @@ map_Genus_2<-map1 + geom_point(data=country_cord_Genus_2, aes(x=long, y=lat,colo
 # Place the two maps side by side 
 ggarrange(map_Genus_1,map_Genus_2, ncol=1,labels = c("A", "B"),font.label = list(size=10))
 
+#remove objects
+rm(map_Genus_1)
+rm(map_Genus_2)
+rm(country_cord_Genus_1)
+rm(country_cord_Genus_2)
+rm(countries_Genus_1)
+rm(countries_Genus_2)
+rm(Genus_1_simplified_geo)
+rm(Genus_1_simplified)
+rm(Genus_2_simplified)
+rm(Genus_2_simplified_geo)
+rm(Genus_2_name)
+rm(Genus_1_name)
+rm(map1)
+rm(Genus_1)
+rm(Genus_2)
+rm(country.maps)
