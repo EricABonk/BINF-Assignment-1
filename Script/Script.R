@@ -136,12 +136,16 @@ records_per_species<-data.frame(count=c(Genus_2_simplified$count,Genus_1_simplif
                                         rep(Genus_1_name, length(Genus_1_simplified$count))))
 # Plot 
 ggplot(records_per_species, aes(x=factor(Genus), y=count)) +
-  geom_bar(stat="summary")+
+  geom_bar(stat="summary", fill = "lightblue")+
   stat_summary(fun.data = mean_se,  
                geom = "errorbar") +
   labs(y="The Mean Number of Records per Species", x="Genus")+
-  theme(axis.text.x = element_text(size=7,face = "bold"))+
-  theme(axis.title = element_text(size = 8,face = "bold"))
+  theme(axis.text.x = element_text(size=10,face = "bold"))+
+  theme(axis.title = element_text(size = 10,face = "bold")) + 
+  theme(panel.background = element_blank()) +
+  ggtitle("Mean Number of Records per Species vs Genus") +
+  theme(axis.ticks.length = unit(0.28,"cm"))
+  
 
 #Plot to break down record numbers by species.
 plot_Genus_1 <- ggplot(data = Genus_1_simplified, aes(y = count, x = species_name)) +
