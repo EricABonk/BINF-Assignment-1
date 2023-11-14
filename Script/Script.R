@@ -1,7 +1,7 @@
 # Assignment 1
 # Version:  2023.09.0+463
 # Author: Eric Bonk
-# Assignment 3 edits coded by Sarah Donald (last edited: November 13, 2023). Contributions include creating edits to make the read-through easier, adding a new figure to compare number of records of each species for each genus. Edits for generalization were also made to improve the flexibility of the code. Minor edits were also made for overall improvement. 
+# Assignment 3 edits coded by Sarah Donald (last edited: November 14, 2023). Contributions include creating edits to make the read-through easier, adding a new figure to compare number of records of each species for each genus. Edits for generalization were also made to improve the flexibility of the code. Minor edits were also made for overall improvement. 
 
 #Libraries Used ----
 #This section contains all the relevant packages used in this code.
@@ -96,21 +96,15 @@ Genus_2_simplified<-Genus_2 %>%
   summarise(count = length(processid))
 
 # Summarization of key variables for analysis----
-# Determine the total number of records for each genus 
-sum(Genus_1_simplified$count)
-sum(Genus_2_simplified$count)
+#Create a summary table of key statistics of each Genus
+summary_Genus_1 <- c("Sum"= sum(Genus_1_simplified$count), "Mean" = mean(Genus_1_simplified$count), "Standard Error" = std.error(Genus_1_simplified$count), "Min" = min(Genus_1_simplified$count), "Max" = max(Genus_1_simplified$count))
+summary_Genus_1
 
-# Determine mean number of records for each genus 
-mean(Genus_1_simplified$count)
-mean(Genus_2_simplified$count)
+summary_Genus_2 <- c("Sum"= sum(Genus_2_simplified$count), "Mean" = mean(Genus_2_simplified$count), "Standard Error" = std.error(Genus_2_simplified$count), "Min" = min(Genus_2_simplified$count), "Max" = max(Genus_2_simplified$count))
+summary_Genus_2
 
-# Determine standard error for the mean number of records for each genus 
-std.error(Genus_1_simplified$count)
-std.error(Genus_2_simplified$count)
-
-# Determine range of records for each genus 
-range(Genus_1_simplified$count)
-range(Genus_2_simplified$count)
+rm(summary_Genus_1)
+rm(summary_Genus_2)
 
 # Determine if there is a statistically significant difference----
 # Test assumptions
